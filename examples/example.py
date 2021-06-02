@@ -7,16 +7,23 @@ from glove import Glove
 from glove import Corpus
 
 
-def read_corpus(filename):
+def read_corpus(dirname):
+    filelist = []
 
     delchars = [chr(c) for c in range(256)]
     delchars = [x for x in delchars if not x.isalnum()]
     delchars.remove(' ')
     delchars = ''.join(delchars)
 
-    with open(filename, 'r') as datafile:
-        for line in datafile:
-            yield line.lower().translate(None, delchars).split(' ')
+    for parent, _, files in os.walk(dirname):
+        for filename in files:
+            fullname = os.path.join(parent, filename)
+            filelist.append(fullname)
+
+    for fname in filelist:
+        with open(fname, 'r') as datafile:
+            for line in datafile:
+                yield line.lower().translate(None, delchars).split(' ')
 
 
 def read_wikipedia_corpus(filename):
