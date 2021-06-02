@@ -39,7 +39,7 @@ def define_extensions(cythonize=False):
                       extra_compile_args=compile_args),
             Extension("glove.corpus_cython", [glove_corpus],
                       language='C++',
-                      libraries=["stdc++"],
+                      libraries=[],
                       extra_link_args=compile_args,
                       extra_compile_args=compile_args)]
 
